@@ -1,0 +1,38 @@
+.button {
+    font-size: 1rem;
+    line-height: 1.5rem;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: .5rem;
+
+    height: 3rem;
+
+    padding: 0.5rem 1rem;
+
+    white-space: nowrap;
+    color: white;
+
+    background: var(--primary);
+    border-radius: var(--radius);
+}
+
+.button:focus-visible {
+    /* outline-offset: 2px;
+    outline-style: solid;
+    outline-width: 2px;
+    outline-color: var(--primary); */
+
+    outline: none;
+    box-shadow:
+        0 0 0 2px var(--background),
+        0 0 0 4px var(--primary);
+}
+
+@media (min-width: 768px) {
+    .button {
+        font-size: 0.875rem;
+        line-height: 1.25rem;
+    }
+}

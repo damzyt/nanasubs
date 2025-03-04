@@ -1,0 +1,62 @@
+.form {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+
+    margin: 0.5rem 0;
+    padding: 0px 1rem;
+}
+
+.form>header>h1 {
+    font-size: 1.875rem;
+    font-weight: 700;
+    color: #414141;
+}
+
+.text {
+    font-size: 0.725rem;
+    color: var(--muted);
+    text-align: justify;
+}
+
+.text a {
+    color: inherit;
+    text-decoration: underline;
+}
+
+.text a:hover {
+    color: black;
+}
+
+.form>main {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.form>main>*:not(:last-child) {
+    margin-bottom: 1rem;
+}
+
+.form button[type="submit"] {
+    width: 100%;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    font-weight: 500;
+}
+
+.invalidFeedback {
+    display: block;
+    color: var(--danger);
+    font-size: 0.725rem;
+    margin-top: 0.5rem;
+}
+
+.socialButtons {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}

@@ -1,0 +1,14 @@
+.provider {
+    font-size: 1.125rem;
+    line-height: 1.5rem;
+
+    width: 100%;
+}
+
+.discord {
+    background: #7289da;
+}
+
+.google {
+    background: #db4437;
+}

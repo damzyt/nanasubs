@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -14,51 +8,51 @@ datasource db {
 }
 
 model cardinal_users {
-  id             Int                      @id @default(autoincrement())
+  id             String                   @id @default(uuid())
   name           String
   email          String                   @unique
   email_verified Boolean                  @default(false)
-  image          String
-  created_at     DateTime
-  updated_at     DateTime
-  accounts       cardinal_user_accounts[] @relation("UserAccounts")
-  sessions       cardinal_user_sessions[] @relation("UserSessions")
+  image          String?                  @default(dbgenerated("NULL"))
+  created_at     DateTime                 @default(now())
+  updated_at     DateTime                 @updatedAt
+  accounts       cardinal_user_accounts[]
+  sessions       cardinal_user_sessions[]
 }
 
 model cardinal_user_sessions {
-  id         Int            @id @default(autoincrement())
-  user       cardinal_users @relation("UserSessions", fields: [user_id], references: [id])
-  user_id    Int
+  id         String         @id @default(uuid())
+  user       cardinal_users @relation(fields: [user_id], references: [id])
+  user_id    String
   token      String
   expires_at DateTime
-  ip_address String
-  user_agent String
-  created_at DateTime
-  updated_at DateTime
+  ip_address String?
+  user_agent String?
+  created_at DateTime       @default(now())
+  updated_at DateTime       @updatedAt
 }
 
 model cardinal_user_accounts {
-  id                       Int            @id @default(autoincrement())
-  user                     cardinal_users @relation("UserAccounts", fields: [user_id], references: [id])
-  user_id                  Int
+  id                       String         @id @default(uuid())
+  user                     cardinal_users @relation(fields: [user_id], references: [id])
+  user_id                  String
   account_id               String
   provider_id              String
-  access_token             String
-  access_token_expires_at  DateTime
-  refresh_token            String
-  refresh_token_expires_at DateTime
-  scope                    String
-  id_token                 String
-  password                 String
-  created_at               DateTime
-  updated_at               DateTime
+  access_token             String?
+  access_token_expires_at  DateTime?
+  refresh_token            String?
+  refresh_token_expires_at DateTime?
+  scope                    String?
+  id_token                 String?
+  password                 String?
+  created_at               DateTime       @default(now())
+  updated_at               DateTime       @updatedAt
 }
 
 model cardinal_user_verifications {
-  id         Int      @id @default(autoincrement())
+  id         String   @id @default(uuid())
   identifier String
   value      String
   expires_at DateTime
-  created_at DateTime
-  updated_at DateTime
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 }
