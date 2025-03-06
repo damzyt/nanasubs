@@ -11,10 +11,10 @@ export default function JoinPage() {
                 <div className={style.gallery}>
                     <div className={style.imageWrapper}>
                         <Image src="/sao-iii-poster.png" alt="Sao" fill={true} />
-                        <p>
+                        {/* <p>
                             <span>Anime picture</span>
                             <a href="#" target="_blank" rel="noopener noreferrer">Sword Art Online: War for Underground</a>
-                        </p>
+                        </p> */}
                     </div>
                 </div>
                 <RegisterForm />

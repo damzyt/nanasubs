@@ -3,12 +3,25 @@
     line-height: 1.5rem;
 
     width: 100%;
+
+    border-color: var(--border);
+    border-width: 2px;
+    border-style: solid;
+    border-radius: var(--radius);
+    background: white;
+}
+
+.provider>span {
+    font-size: 0.825rem;
+    font-weight: 500;
+    line-height: 1.25rem;
+    text-transform: capitalize;
 }
 
 .discord {
-    background: #7289da;
+    color: #7289da;
 }
 
 .google {
-    background: #db4437;
+    color: #db4437;
 }

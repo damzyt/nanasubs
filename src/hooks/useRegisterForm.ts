@@ -22,14 +22,36 @@ export const useRegisterForm = () => {
     });
     const [errors, setErrors] = useState<Errors>({});
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [touched, setTouched] = useState<{ [key in keyof FormData]?: boolean }>({});
 
     const handleInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setFormData(prev => ({ ...prev, [name]: value }));
-    }, []);
+
+        if (touched[name as keyof FormData]) {
+            const validateField = async () => {
+                let error: string | undefined;
+                switch (name) {
+                    case 'name':
+                        error = await validateLogin(value);
+                        break;
+                    case 'email':
+                        error = await validateEmail(value);
+                        break;
+                    case 'password':
+                        error = validatePassword(value);
+                        break;
+                }
+                setErrors(prev => ({ ...prev, [name]: error }));
+            };
+            validateField();
+        }
+
+    }, [touched]);
 
     const handleBlur = useCallback(async (e: React.FocusEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
+        setTouched(prev => ({ ...prev, [name]: true }));
         let error: string | undefined;
 
         switch (name) {
@@ -46,6 +68,17 @@ export const useRegisterForm = () => {
 
         setErrors(prev => ({ ...prev, [name]: error }));
     }, []);
+
+    const isValid =
+        touched.name &&
+        touched.email &&
+        touched.password &&
+        !errors.name &&
+        !errors.email &&
+        !errors.password &&
+        formData.name.trim() !== '' &&
+        formData.email.trim() !== '' &&
+        formData.password.trim() !== '';
 
     const handleSubmit = useCallback(async (e: React.FormEvent) => {
         e.preventDefault();
@@ -89,6 +122,7 @@ export const useRegisterForm = () => {
         formData,
         errors,
         isSubmitting,
+        isValid,
         handleInputChange,
         handleBlur,
         handleSubmit,

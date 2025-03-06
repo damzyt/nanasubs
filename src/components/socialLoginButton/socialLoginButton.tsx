@@ -8,9 +8,14 @@ import style from "@/components/socialLoginButton/socialLoginButton.module.css";
 interface SocialLoginButtonProps {
     provider: 'discord' | 'google';
     onClick?: () => void;
+    disabled?: boolean;
 }
 
-const SocialLoginButton: React.FC<SocialLoginButtonProps> = ({ provider, onClick }) => {
+const SocialLoginButton: React.FC<SocialLoginButtonProps> = ({
+    provider,
+    onClick,
+    disabled
+}) => {
 
     const providerIcons = {
         discord: <FaDiscord />,
@@ -21,8 +26,9 @@ const SocialLoginButton: React.FC<SocialLoginButtonProps> = ({ provider, onClick
         <Button
             className={`${style.provider} ${style[provider]}`}
             onClick={onClick}
+            disabled={disabled}
         >
-            {providerIcons[provider]}
+            {providerIcons[provider]} <span>{provider}</span>
         </Button>
     );
 

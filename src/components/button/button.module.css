@@ -30,6 +30,11 @@
         0 0 0 4px var(--primary);
 }
 
+.button:disabled {
+    opacity: .85;
+    cursor: not-allowed;
+}
+
 @media (min-width: 768px) {
     .button {
         font-size: 0.875rem;

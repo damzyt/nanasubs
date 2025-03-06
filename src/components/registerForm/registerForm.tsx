@@ -16,6 +16,7 @@ const RegisterForm: React.FC = () => {
 		formData,
 		errors,
 		isSubmitting,
+		isValid,
 		handleInputChange,
 		handleBlur,
 		handleSubmit
@@ -25,7 +26,7 @@ const RegisterForm: React.FC = () => {
 		<form className={style.form} onSubmit={handleSubmit} noValidate>
 			<header>
 				<h1>Sign Up</h1>
-				<p className={style.text}>Already have an account? <a href="#">Sign In</a></p>
+				<h2>Already have an account? <a href="#">Sign In</a></h2>
 			</header>
 			<main>
 				<div>
@@ -72,7 +73,7 @@ const RegisterForm: React.FC = () => {
 
 				<Button
 					type="submit"
-					disabled={isSubmitting}
+					disabled={isSubmitting || !isValid}
 				>
 					{isSubmitting ? 'Submitting...' : 'Sign Up'}
 				</Button>
@@ -80,10 +81,12 @@ const RegisterForm: React.FC = () => {
 				<div className={style.socialButtons}>
 					<SocialLoginButton
 						provider="discord"
+						disabled={isSubmitting}
 					>
 					</SocialLoginButton>
 					<SocialLoginButton
 						provider="google"
+						disabled={isSubmitting}
 					>
 					</SocialLoginButton>
 				</div>
