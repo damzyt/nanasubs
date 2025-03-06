@@ -1,10 +1,10 @@
 import Image from "next/image";
 
-import { LoginForm } from "@/components/loginForm/loginForm";
+import { RegisterForm } from "@/components/registerForm/registerForm";
 
-import style from "@/app/auth/login/page.module.css";
+import style from "@/app/join/page.module.css";
 
-export default function LoginPage() {
+export default function JoinPage() {
     return (
         <div className={style.container}>
             <div className={style.login}>
@@ -17,7 +17,7 @@ export default function LoginPage() {
                         </p>
                     </div>
                 </div>
-                <LoginForm />
+                <RegisterForm />
             </div>
         </div>
 

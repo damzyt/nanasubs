@@ -1,6 +1,6 @@
 "use client";
 
-import { useLoginForm } from "@/hooks/useLoginForm";
+import { useRegisterForm } from "@/hooks/useRegisterForm";
 
 import { Label } from "@/components/label/label";
 import { Input } from "@/components/input/input";
@@ -8,9 +8,9 @@ import { Button } from "@/components/button/button";
 import { SocialLoginButton } from "@/components/socialLoginButton/socialLoginButton";
 import { PasswordInput } from "@/components/passwordInput/passwordInput";
 
-import style from "@/components/loginForm/loginForm.module.css";
+import style from "@/components/registerForm/registerForm.module.css";
 
-const LoginForm: React.FC = () => {
+const RegisterForm: React.FC = () => {
 
 	const {
 		formData,
@@ -19,13 +19,13 @@ const LoginForm: React.FC = () => {
 		handleInputChange,
 		handleBlur,
 		handleSubmit
-	} = useLoginForm();
+	} = useRegisterForm();
 
 	return (
 		<form className={style.form} onSubmit={handleSubmit} noValidate>
 			<header>
-				<h1>Sign In</h1>
-				<p className={style.text}>Already have an account? <a href="#">Log in</a></p>
+				<h1>Sign Up</h1>
+				<p className={style.text}>Already have an account? <a href="#">Sign In</a></p>
 			</header>
 			<main>
 				<div>
@@ -98,4 +98,4 @@ const LoginForm: React.FC = () => {
 
 }
 
-export { LoginForm }
+export { RegisterForm }

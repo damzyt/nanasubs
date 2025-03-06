@@ -14,7 +14,7 @@ interface Errors {
     password?: string;
 }
 
-export const useLoginForm = () => {
+export const useRegisterForm = () => {
     const [formData, setFormData] = useState<FormData>({
         name: '',
         email: '',
@@ -74,11 +74,8 @@ export const useLoginForm = () => {
             });
 
             if (error) {
-                console.log(name, email, password);
-
                 throw error;
             }
-
         } catch (error) {
             console.log('Registration error:', error);
             alert('An unexpected error occurred. Please try again.');
