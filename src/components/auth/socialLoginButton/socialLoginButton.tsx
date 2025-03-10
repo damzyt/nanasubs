@@ -1,9 +1,9 @@
 import React from "react";
 
-import { Button } from "@/components/button/button";
+import { Button } from "@/components/common";
 import { FaDiscord, FaGoogle } from "react-icons/fa6";
 
-import style from "@/components/socialLoginButton/socialLoginButton.module.css";
+import style from "./socialLoginButton.module.css";
 
 interface SocialLoginButtonProps {
     provider: 'discord' | 'google';

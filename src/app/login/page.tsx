@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import { LoginForm } from "@/components/loginForm/loginForm";
+import { LoginForm } from "@/components/auth/loginForm/loginForm";
 
 import style from "@/app/join/page.module.css";
 

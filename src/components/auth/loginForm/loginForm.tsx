@@ -1,16 +1,11 @@
 "use client";
 
-import { useLoginForm } from "@/hooks/useLoginForm";
-import { useDiscordAuth } from "@/hooks/useDiscordAuth";
-import { useGoogleAuth } from "@/hooks/useGoogleAuth";
+import { useLoginForm, useDiscordAuth, useGoogleAuth } from "@/hooks/auth";
 
-import { Label } from "@/components/label/label";
-import { Input } from "@/components/input/input";
-import { Button } from "@/components/button/button";
-import { SocialLoginButton } from "@/components/socialLoginButton/socialLoginButton";
-import { PasswordInput } from "@/components/passwordInput/passwordInput";
+import { Label, Input, Button } from "@/components/common";
+import { SocialLoginButton, PasswordInput } from "@/components/auth";
 
-import style from "@/components/registerForm/registerForm.module.css";
+import style from "@/components/auth/registerForm/registerForm.module.css";
 import Link from "next/link";
 
 const LoginForm: React.FC = () => {
@@ -69,7 +64,10 @@ const LoginForm: React.FC = () => {
                 >
                     {isSubmitting ? 'Signing In...' : 'Sign In'}
                 </Button>
-                <hr />
+                <div className="relative">
+                    <hr />
+                    <span className="text-gray-500 text-xs absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 px-5 bg-white text-nowrap uppercase">or login by social account</span>
+                </div>
                 <div className={style.socialButtons}>
                     <SocialLoginButton
                         provider="discord"

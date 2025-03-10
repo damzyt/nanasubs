@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import { RegisterForm } from "@/components/registerForm/registerForm";
+import { RegisterForm } from "@/components/auth";
 
 import style from "@/app/join/page.module.css";
 

@@ -1,6 +1,7 @@
-import { Input } from "@/components/input/input";
-import { PasswordToggleButton } from "@/components/passwordToggleButton/passwordToggleButton";
-import { usePasswordToggle } from "@/hooks/usePasswordToggle";
+import { usePasswordToggle } from "@/hooks/auth";
+
+import { Input } from "@/components/common";
+import { PasswordToggleButton } from "@/components/auth";
 
 interface PasswordInputProps {
     value: string;

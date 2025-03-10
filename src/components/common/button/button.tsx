@@ -1,6 +1,6 @@
 import * as React from "react"
 
-import style from "@/components/button/button.module.css";
+import style from "./button.module.css";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     children: React.ReactNode;
