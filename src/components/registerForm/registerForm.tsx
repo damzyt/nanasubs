@@ -1,6 +1,8 @@
 "use client";
 
 import { useRegisterForm } from "@/hooks/useRegisterForm";
+import { useDiscordAuth } from "@/hooks/useDiscordAuth";
+import { useGoogleAuth } from "@/hooks/useGoogleAuth";
 
 import { Label } from "@/components/label/label";
 import { Input } from "@/components/input/input";
@@ -9,6 +11,7 @@ import { SocialLoginButton } from "@/components/socialLoginButton/socialLoginBut
 import { PasswordInput } from "@/components/passwordInput/passwordInput";
 
 import style from "@/components/registerForm/registerForm.module.css";
+import Link from "next/link";
 
 const RegisterForm: React.FC = () => {
 
@@ -22,11 +25,14 @@ const RegisterForm: React.FC = () => {
 		handleSubmit
 	} = useRegisterForm();
 
+	const handleDiscordAuth = useDiscordAuth();
+	const handleGoogleAuth = useGoogleAuth();
+
 	return (
 		<form className={style.form} onSubmit={handleSubmit} noValidate>
 			<header>
 				<h1>Sign Up</h1>
-				<h2>Already have an account? <a href="#">Sign In</a></h2>
+				<h2>Already have an account? <Link href="/login">Sign In</Link></h2>
 			</header>
 			<main>
 				<div>
@@ -81,11 +87,13 @@ const RegisterForm: React.FC = () => {
 				<div className={style.socialButtons}>
 					<SocialLoginButton
 						provider="discord"
+						onClick={handleDiscordAuth}
 						disabled={isSubmitting}
 					>
 					</SocialLoginButton>
 					<SocialLoginButton
 						provider="google"
+						onClick={handleGoogleAuth}
 						disabled={isSubmitting}
 					>
 					</SocialLoginButton>

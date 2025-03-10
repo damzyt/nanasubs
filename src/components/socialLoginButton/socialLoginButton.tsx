@@ -7,7 +7,7 @@ import style from "@/components/socialLoginButton/socialLoginButton.module.css";
 
 interface SocialLoginButtonProps {
     provider: 'discord' | 'google';
-    onClick?: () => void;
+    onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
     disabled?: boolean;
 }
 
