@@ -1,13 +1,14 @@
 import { ReactNode } from "react";
 
 type SidebarProps = {
+    isSidebarCollapsed: boolean;
     children: ReactNode;
 };
 
-const Sidebar = ({ children }: SidebarProps) => {
+const Sidebar = ({ isSidebarCollapsed, children }: SidebarProps) => {
 
     return (
-        <aside className="w-64 border-r-2 border-gray-200 h-full">
+        <aside className={`transition-all duration-300 ${isSidebarCollapsed ? 'w-16' : 'w-64'} border-r-2 border-gray-200 h-screen overflow-hidden`}>
             {children}
         </aside>
     );

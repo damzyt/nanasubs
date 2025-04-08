@@ -12,7 +12,7 @@ import { useEffect, useState } from 'react';
 import { Sidebar, SidebarHeader, SidebarNav } from "@/components/panel";
 
 import { FaHouse, FaCalendar, FaDisplay, FaUsers } from "react-icons/fa6";
-import { LuPanelLeftClose, LuLayoutDashboard, LuBell, LuSearch, LuUser, LuSettings, LuLogOut } from "react-icons/lu";
+import { LuPanelLeftClose, LuLayoutDashboard, LuBell, LuSearch, LuUser, LuSettings, LuLogOut, LuPanelLeftOpen, LuMoon } from "react-icons/lu";
 import { TbPolaroid } from "react-icons/tb";
 
 const SAOFont = localFont({
@@ -30,10 +30,25 @@ export default function PanelLayout({ children }: { children: React.ReactNode })
         }
     }, [session, isPending, router]);
     
-    const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false);
+    const [isUserDropdownOpen, setIsUserDropdownOpen] = useState<boolean>(false);
 
     const toggleUserDropdown = () => {
         setIsUserDropdownOpen((prev) => !prev);
+    };
+
+    const [isSidebarCollapsed, setIsSidebarCollapsed] = useState<boolean>(false);
+
+    useEffect(() => {
+        const storedValue = localStorage.getItem('isSidebarCollapsed');
+        if (storedValue !== null) {
+            setIsSidebarCollapsed(storedValue === 'true');
+        }
+    }, []);
+
+    const toggleSidebar = () => {
+        const newValue = !isSidebarCollapsed;
+        setIsSidebarCollapsed(newValue);
+        localStorage.setItem('isSidebarCollapsed', String(newValue));
     };
 
     const userLogout = async () => {
@@ -49,64 +64,54 @@ export default function PanelLayout({ children }: { children: React.ReactNode })
 
 
     return (
-        <div className="grid grid-cols-[auto_1fr] h-full">
-            <Sidebar>
+        <div className="grid grid-cols-[auto_1fr] h-100">
+            <Sidebar isSidebarCollapsed={isSidebarCollapsed}>
                 <SidebarHeader>
                     <div className="flex items-center text-lg gap-2">
-                        <Image src="/logotypes/cardinal_system.png" alt="nanaa" width={32} height={32} />
-                        <span className={SAOFont.className}>cardinal_system</span>
+                        <Image src="/logotypes/cardinal_system.png" alt="nanaa" width={36} height={36} />
+                        <span className={`${SAOFont.className} ${isSidebarCollapsed ? 'hidden' : ''}`}>cardinal_system</span>
                     </div>
-                    <button className="rounded text-lg p-3 h-fit bg-gray-100">
-                        <LuPanelLeftClose />
-                    </button>
                 </SidebarHeader>
-                {/* <div className="p-2">
-                    <div className="flex items-center p-2 gap-2 rounded bg-gray-100">
-                        <div>
-                            <Image src="/logotypes/logo-small.png" alt="nanaa" width={32} height={32} />
-                        </div>
-                        <div className="flex flex-col text-sm">
-                            <span className="font-semibold">NanaSubs</span>
-                            <span className="text-xs">Owner</span>
-                        </div>
-                    </div>
-                </div> */}
                 <SidebarNav>
-                    <ul className="flex flex-col list-none">
+                    <ul className="flex flex-col list-none overflow-hidden">
                         <li>
                             <Link href="/panel/dashboard" className="flex items-center gap-2 rounded p-2 bg-primary">
-                                <span className="flex items-center justify-center h-7 w-7 text-lg bg-white rounded-full text-primary"><LuLayoutDashboard /></span>
-                                <span className="text-white font-semibold text-sm ">Dashboard</span>
+                                <span className="flex items-center justify-center h-7 w-7 min-w-[1.75rem] text-lg bg-white rounded-full text-primary"><LuLayoutDashboard /></span>
+                                <span 
+                                    className={`text-white font-semibold text-xs ${isSidebarCollapsed ? 'hidden' : ''}`} 
+                                >
+                                    Dashboard
+                                </span>
                             </Link>
                         </li>
                     </ul>
-                    <h3 className="uppercase text-xs font-bold text-gray-500 mt-4 mb-2">anime</h3>
+                    <h3 className={`uppercase text-xs font-bold text-gray-500 ml-2 mt-4 mb-2 overflow-hidden ${isSidebarCollapsed ? 'w-0' : ''}`}>anime</h3>
                     <ul className="flex flex-col gap-1 list-none">
                         <li>
                             <Link href="/panel/dashboard" className="flex items-center gap-2 rounded p-2 hover:bg-gray-100">
-                                <span className="flex items-center justify-center h-7 w-7 text-base bg-gray-300 rounded-full text-gray-700 "><TbPolaroid /></span>
-                                <span className="text-gray-600 font-medium text-sm ">Anime</span>
+                                <span className="flex items-center justify-center h-7 w-7 min-w-[1.75rem] text-base bg-gray-300 rounded-full text-gray-700 "><TbPolaroid /></span>
+                                <span className={`text-gray-600 font-semibold text-xs ${isSidebarCollapsed ? 'hidden' : ''}`}>Anime</span>
                             </Link>
                         </li>
                         <li>
                             <Link href="/panel/dashboard" className="flex items-center gap-2 rounded p-2 hover:bg-gray-100">
-                                <span className="flex items-center justify-center h-7 w-7 text-base bg-gray-300 rounded-full text-gray-700 "><FaDisplay /></span>
-                                <span className="text-gray-600 font-medium text-sm ">Odcinki</span>
+                                <span className="flex items-center justify-center h-7 w-7 min-w-[1.75rem] text-base bg-gray-300 rounded-full text-gray-700 "><FaDisplay /></span>
+                                <span className={`text-gray-600 font-semibold text-xs ${isSidebarCollapsed ? 'hidden' : ''}`}>Odcinki</span>
                             </Link>
                         </li>
                         <li>
                             <Link href="/panel/dashboard" className="flex items-center gap-2 rounded p-2 hover:bg-gray-100">
-                                <span className="flex items-center justify-center h-7 w-7 text-sm bg-gray-300 rounded-full text-gray-700"><FaCalendar /></span>
-                                <span className="text-gray-600 font-medium text-sm ">Harmonogram</span>
+                                <span className="flex items-center justify-center h-7 w-7 min-w-[1.75rem] text-sm bg-gray-300 rounded-full text-gray-700"><FaCalendar /></span>
+                                <span className={`text-gray-600 font-semibold text-xs ${isSidebarCollapsed ? 'hidden' : ''}`}>Harmonogram</span>
                             </Link>
                         </li>
                     </ul>
-                    <h3 className="uppercase text-xs font-bold text-gray-500 mt-4 mb-2">użytkownicy</h3>
+                    <h3 className={`uppercase text-xs font-bold text-gray-500 ml-2 mt-4 mb-2 overflow-hidden ${isSidebarCollapsed ? 'w-0' : ''}`}>użytkownicy</h3>
                     <ul className="flex flex-col gap-1 list-none">
                         <li>
                             <Link href="/panel/dashboard" className="flex items-center gap-2 rounded p-2 hover:bg-gray-100">
-                                <span className="flex items-center justify-center h-7 w-7 text-base bg-gray-300 rounded-full text-gray-700 "><FaUsers /></span>
-                                <span className="text-gray-600 font-medium text-sm ">Użytkownicy</span>
+                                <span className="flex items-center justify-center h-7 w-7 min-w-[1.75rem] text-base bg-gray-300 rounded-full text-gray-700 "><FaUsers /></span>
+                                <span className={`text-gray-600 font-semibold text-xs ${isSidebarCollapsed ? 'hidden' : ''}`}>Użytkownicy</span>
                             </Link>
                         </li>
                     </ul>
@@ -115,9 +120,9 @@ export default function PanelLayout({ children }: { children: React.ReactNode })
             <main className="h-full flex flex-col">
                 <nav className="relative flex flex-row items-center justify-between gap-2 p-2 border-b-2 border-gray-200">
                     {/* LEFT SIDE */}
-                    <div className="flex items-start gap-2">
-                        <h1 className="font-bold">Dashboard</h1>
-                    </div>
+                    <button className="rounded text-lg p-3 h-fit bg-gray-100 hover:bg-gray-200" onClick={toggleSidebar}>
+                        {isSidebarCollapsed ? <LuPanelLeftOpen /> : <LuPanelLeftClose />}
+                    </button>
                     {/* CENTER */}
                     <div>
 
@@ -125,11 +130,14 @@ export default function PanelLayout({ children }: { children: React.ReactNode })
                     {/* RIGHT SIDE */}
                     <div className="flex items-end gap-2">
                         <button className="flex flex-row items-center gap-2 rounded text-lg p-3 h-fit bg-gray-100">
-                            <LuSearch />
+                            <span className="text-gray-500"><LuSearch /></span>
                             <span className="text-xs font-medium text-gray-500">Start search...&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                            <span className="text-[10px]/[1] font-semibold tracking-wide rounded  p-1 bg-gray-700 text-white">
+                            <span className="text-[10px]/[1] font-semibold tracking-wider rounded  p-1 bg-gray-700 text-white">
                                 Ctrl + K
                             </span>
+                        </button>
+                        <button className="rounded text-lg p-3 h-fit bg-gray-100">
+                            <LuMoon />
                         </button>
                         <button className="rounded text-lg p-3 h-fit bg-gray-100">
                             <LuBell />
